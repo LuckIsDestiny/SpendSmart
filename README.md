@@ -77,12 +77,13 @@ SpendSmart is a modern, user-friendly personal finance management application th
 - MongoDB 6.x
 - JWT Authentication
 - Microservices Architecture:
-  - User Service
-  - Transaction Service
-  - Budget Service
-  - Savings Service
-  - Notification Service
-  - AI Service
+  - Auth Service (Port: 3001)
+  - Manual Transactions Service (Port: 3005)
+  - Budget Savings Service (Port: 3003)
+  - AI Advisor Service (Port: 3004)
+  - API Gateway (Port: 9090)
+  - MongoDB (Port: 27017)
+  - Ollama LLM Service (Port: 11434)
 
 ## Getting Started
 
@@ -96,29 +97,17 @@ SpendSmart is a modern, user-friendly personal finance management application th
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/SpendSmart.git
+git clone https://github.com/LuckIsDestiny/SpendSmart.git
 cd SpendSmart
 ```
 
-2. Install dependencies:
+2. Install frontend dependencies:
 ```bash
-# Install frontend dependencies
 cd SpendSmart-Frontend
 npm install
-
-# Install backend dependencies
-cd ../SpendSmart-Backend
-npm install
 ```
-
+<!-- 
 3. Set up environment variables:
-
-Frontend (.env):
-```env
-REACT_APP_API_URL=http://localhost:9090
-REACT_APP_AUTH_TOKEN=your_auth_token
-REACT_APP_GOOGLE_ANALYTICS_ID=your_ga_id
-```
 
 Backend Services:
 
@@ -167,23 +156,30 @@ AUTH_SERVICE_URL=http://auth-service:3001
 MANUAL_TRANSACTIONS_SERVICE_URL=http://manual-transactions-service:3005
 BUDGET_SAVINGS_SERVICE_URL=http://budget-savings-service:3003
 AI_ADVISOR_SERVICE_URL=http://ai-advisor-service:3004
-```
+``` -->
 
-4. Start the development servers:
+3. Start the application:
 
 Using Docker Compose (recommended):
 ```bash
-# Start all services
+# Start all backend services and frontend
 cd SpendSmart-Backend
-docker-compose up
+docker compose up
 
-# Start frontend server (in a new terminal)
+# In a new terminal, start the frontend (if not using Docker)
 cd SpendSmart-Frontend
 npm start
 ```
 
-Or start services individually:
+Or start services individually (without Docker):
 ```bash
+# Install backend dependencies for each service
+cd SpendSmart-Backend/auth-service && npm install
+cd ../manual-transactions-service && npm install
+cd ../budget-savings-service && npm install
+cd ../ai-advisor-service && npm install
+cd ../api-gateway && npm install
+
 # Start backend services
 cd SpendSmart-Backend
 npm run dev
@@ -197,49 +193,8 @@ The application will be available at:
 - Frontend: `http://localhost:3000`
 - API Gateway: `http://localhost:9090`
 - API Documentation: `http://localhost:9876`
-
-## Project Structure
-
-```
-SpendSmart/
-├── SpendSmart-Frontend/
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── common/
-│   │   │   ├── layout/
-│   │   │   └── charts/
-│   │   ├── contexts/
-│   │   │   ├── AuthContext.js
-│   │   │   └── ThemeContext.js
-│   │   ├── pages/
-│   │   │   ├── Dashboard/
-│   │   │   ├── Accounts/
-│   │   │   ├── Budgets/
-│   │   │   └── Savings/
-│   │   ├── utils/
-│   │   │   ├── api.js
-│   │   │   └── helpers.js
-│   │   └── api/
-│   │       ├── auth.js
-│   │       └── transactions.js
-│   └── public/
-└── SpendSmart-Backend/
-    ├── src/
-    │   ├── controllers/
-    │   ├── models/
-    │   ├── routes/
-    │   ├── services/
-    │   └── middleware/
-    └── config/
-```
-
-## API Documentation
-
-The API documentation is available at `/api-docs` when running the backend server. It provides detailed information about:
-- Available endpoints
-- Request/response formats
-- Authentication requirements
-- Error codes and handling
+- MongoDB: `mongodb://localhost:27017`
+- Ollama LLM: `http://localhost:11434`
 
 ## Contributing
 
@@ -249,39 +204,6 @@ The API documentation is available at `/api-docs` when running the backend serve
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-Please ensure your code follows our coding standards and includes appropriate tests.
-
-## Testing
-
-```bash
-# Run frontend tests
-cd SpendSmart-Frontend
-npm test
-
-# Run backend tests
-cd SpendSmart-Backend
-npm test
-```
-
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Acknowledgments
-
-- Material-UI for the component library
-- Recharts for data visualization
-- Framer Motion for animations
-- All contributors who have helped shape this project
-
-## Contact
-
-Your Name - your.email@example.com
-Project Link: [https://github.com/yourusername/SpendSmart](https://github.com/yourusername/SpendSmart)
-
-## Support
-
-For support, please:
-1. Check the [documentation](docs/)
-2. Open an issue in the repository
-3. Contact the maintainers 
