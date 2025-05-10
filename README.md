@@ -85,6 +85,54 @@ SpendSmart is a modern, user-friendly personal finance management application th
   - MongoDB (Port: 27017)
   - Ollama LLM Service (Port: 11434)
 
+## API Documentation
+
+### Auth Service (Port: 3001)
+```
+POST /api/auth/register - Register a new user
+POST /api/auth/login - Login user
+GET /api/users/profile - Get user profile (requires authentication)
+```
+
+### Manual Transactions Service (Port: 3005)
+```
+POST /api/transactions - Create a new transaction
+GET /api/transactions - Get all transactions
+GET /api/transactions/account/:accountId - Get transactions by account
+GET /api/transactions/:id - Get transaction by ID
+PUT /api/transactions/:id - Update transaction
+DELETE /api/transactions/:id - Delete transaction
+POST /api/transactions/accounts - Get transactions by multiple accounts
+```
+
+### Budget Savings Service (Port: 3003)
+```
+# Budgets
+POST /api/budgets - Create a new budget
+GET /api/budgets - Get all budgets
+PUT /api/budgets/:budgetId - Update budget
+DELETE /api/budgets/:budgetId - Delete budget
+GET /api/budgets/summary - Get budget summary
+GET /api/budgets/summary/transactions - Get budget summary with transactions
+
+# Savings
+POST /api/savings - Create a new savings goal
+GET /api/savings - Get all savings goals
+PUT /api/savings/:goalId - Update savings goal
+DELETE /api/savings/:goalId - Delete savings goal
+GET /api/savings/progress - Get savings progress
+POST /api/savings/allocate - Allocate savings
+```
+
+### AI Advisor Service (Port: 3004)
+```
+POST /api/ai-advisor/chat - Chat with AI advisor
+POST /api/ai-advisor/chat/stream - Stream chat with AI advisor
+POST /api/ai-advisor/loadModel - Load AI model
+```
+
+**Note:** All endpoints except `/api/auth/register` and `/api/auth/login` require JWT authentication. The API Gateway (Port: 9090) handles routing to all services.
+
 ## Getting Started
 
 ### Prerequisites
