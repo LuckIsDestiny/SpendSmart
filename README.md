@@ -1,76 +1,96 @@
 # SpendSmart - Personal Finance Management Application
 
-SpendSmart is a modern, user-friendly personal finance management application that helps users track their expenses, manage budgets, set savings goals, and make informed financial decisions.
+SpendSmart is a modern, user-friendly personal finance management application that helps users track their expenses, manage budgets, set savings goals, and make informed financial decisions. The application is built with a microservices architecture to ensure scalability and maintainability.
 
 ## Features
 
 ### 1. Dashboard
-- Overview of financial health
-- Quick access to key metrics
-- Visual representation of spending patterns
+- Real-time overview of financial health
+- Quick access to key metrics and KPIs
+- Interactive charts for spending patterns
 - Monthly income and expense trends
+- Budget vs. actual spending comparison
 
 ### 2. Accounts Management
-- Track multiple bank accounts
-- Monitor account balances
-- View transaction history
-- Account-wise analytics
+- Track multiple bank accounts and credit cards
+- Real-time balance monitoring
+- Detailed transaction history
+- Account-wise analytics and insights
+- Transaction categorization
+- Export transaction history
 
 ### 3. Budget Management
 - Create and manage budgets by category
 - Set monthly/weekly spending limits
-- Track budget utilization
-- Visual progress indicators
+- Track budget utilization with visual indicators
+- Budget alerts and notifications
 - Export budget reports to PDF
+- Budget vs. actual comparison charts
 
 ### 4. Savings Goals
-- Set and track savings goals
-- Monitor progress with visual indicators
-- Set target dates and amounts
-- Track contributions
-- Support for multiple savings goals
+- Set and track multiple savings goals
+- Progress tracking with visual indicators
+- Flexible target dates and amounts
+- Contribution tracking and history
+- Goal completion notifications
+- Export savings reports
 
 ### 5. Financial Schemes
 - Browse government and private financial schemes
-- Filter schemes by category (Savings, Education, Housing, Insurance)
-- View eligibility criteria
-- Direct links to scheme applications
-- Search functionality
+- Category-based filtering (Savings, Education, Housing, Insurance)
+- Detailed eligibility criteria
+- Direct application links
+- Advanced search functionality
+- Scheme comparison tools
 
 ### 6. Reports & Analytics
-- Detailed spending analysis
+- Comprehensive spending analysis
 - Category-wise expense breakdown
 - Income vs. expense trends
 - Customizable date ranges
 - Export reports to PDF
+- Interactive charts and graphs
 
 ### 7. AI Advisor
 - Personalized financial recommendations
 - Smart spending insights
 - Budget optimization suggestions
 - Savings opportunities
+- Financial goal recommendations
+- Market trend analysis
 
 ## Tech Stack
 
 ### Frontend
-- React.js
-- Material-UI (MUI)
-- React Router
-- Recharts (for data visualization)
-- Framer Motion (for animations)
+- React.js 18.x
+- Material-UI (MUI) 5.x
+- React Router 6.x
+- Recharts 2.x (for data visualization)
+- Framer Motion 10.x (for animations)
+- Axios (for API calls)
+- React Query (for data fetching)
+- React Hook Form (for form handling)
 
 ### Backend
-- Node.js
-- Express.js
-- MongoDB
+- Node.js 18.x
+- Express.js 4.x
+- MongoDB 6.x
 - JWT Authentication
+- Microservices Architecture:
+  - User Service
+  - Transaction Service
+  - Budget Service
+  - Savings Service
+  - Notification Service
+  - AI Service
 
 ## Getting Started
 
 ### Prerequisites
-- Node.js (v14 or higher)
-- MongoDB
-- npm or yarn
+- Node.js (v18 or higher)
+- MongoDB (v6 or higher)
+- npm (v8 or higher) or yarn (v1.22 or higher)
+- Git
 
 ### Installation
 
@@ -92,29 +112,91 @@ npm install
 ```
 
 3. Set up environment variables:
-```bash
-# Frontend (.env)
-REACT_APP_API_URL=http://localhost:5000
-REACT_APP_AUTH_TOKEN=your_auth_token
 
-# Backend (.env)
-PORT=5000
-MONGODB_URI=your_mongodb_uri
-JWT_SECRET=your_jwt_secret
+Frontend (.env):
+```env
+REACT_APP_API_URL=http://localhost:9090
+REACT_APP_AUTH_TOKEN=your_auth_token
+REACT_APP_GOOGLE_ANALYTICS_ID=your_ga_id
+```
+
+Backend Services:
+
+Auth Service (.env):
+```env
+PORT=3001
+MONGODB_URI=mongodb://mongo:27017/spendsmart_auth
+JWT_SECRET=supersecretkey123456789
+```
+
+Manual Transactions Service (.env):
+```env
+PORT=3005
+MONGODB_URI=mongodb://mongo:27017/spendsmart_expense
+JWT_SECRET=supersecretkey123456789
+EXCHANGE_RATE_API_KEY=your_exchange_rate_api_key
+```
+
+Budget Savings Service (.env):
+```env
+PORT=3003
+MONGODB_URI=mongodb://mongo:27017/spendsmart_budget
+JWT_SECRET=supersecretkey123456789
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=your_email
+SMTP_PASS=your_email_password
+AUTH_SERVICE_URL=http://auth-service:3001
+MANUAL_TRANSACTIONS_SERVICE_URL=http://manual-transactions-service:3005
+```
+
+AI Advisor Service (.env):
+```env
+PORT=3004
+JWT_SECRET=supersecretkey123456789
+AUTH_SERVICE_URL=http://auth-service:3001
+MODEL_NAME=llama3.2
+MODEL_PROVIDER=ollama
+OLLAMA_HOST=http://ai-llm:11434
+```
+
+API Gateway (.env):
+```env
+JWT_SECRET=supersecretkey123456789
+AUTH_SERVICE_URL=http://auth-service:3001
+MANUAL_TRANSACTIONS_SERVICE_URL=http://manual-transactions-service:3005
+BUDGET_SAVINGS_SERVICE_URL=http://budget-savings-service:3003
+AI_ADVISOR_SERVICE_URL=http://ai-advisor-service:3004
 ```
 
 4. Start the development servers:
-```bash
-# Start backend server
-cd SpendSmart-Backend
-npm run dev
 
-# Start frontend server
+Using Docker Compose (recommended):
+```bash
+# Start all services
+cd SpendSmart-Backend
+docker-compose up
+
+# Start frontend server (in a new terminal)
 cd SpendSmart-Frontend
 npm start
 ```
 
-The application will be available at `http://localhost:3000`
+Or start services individually:
+```bash
+# Start backend services
+cd SpendSmart-Backend
+npm run dev
+
+# Start frontend server (in a new terminal)
+cd SpendSmart-Frontend
+npm start
+```
+
+The application will be available at:
+- Frontend: `http://localhost:3000`
+- API Gateway: `http://localhost:9090`
+- API Documentation: `http://localhost:9876`
 
 ## Project Structure
 
@@ -123,19 +205,41 @@ SpendSmart/
 ├── SpendSmart-Frontend/
 │   ├── src/
 │   │   ├── components/
+│   │   │   ├── common/
+│   │   │   ├── layout/
+│   │   │   └── charts/
 │   │   ├── contexts/
+│   │   │   ├── AuthContext.js
+│   │   │   └── ThemeContext.js
 │   │   ├── pages/
+│   │   │   ├── Dashboard/
+│   │   │   ├── Accounts/
+│   │   │   ├── Budgets/
+│   │   │   └── Savings/
 │   │   ├── utils/
+│   │   │   ├── api.js
+│   │   │   └── helpers.js
 │   │   └── api/
+│   │       ├── auth.js
+│   │       └── transactions.js
 │   └── public/
 └── SpendSmart-Backend/
     ├── src/
     │   ├── controllers/
     │   ├── models/
     │   ├── routes/
-    │   └── services/
+    │   ├── services/
+    │   └── middleware/
     └── config/
 ```
+
+## API Documentation
+
+The API documentation is available at `/api-docs` when running the backend server. It provides detailed information about:
+- Available endpoints
+- Request/response formats
+- Authentication requirements
+- Error codes and handling
 
 ## Contributing
 
@@ -144,6 +248,20 @@ SpendSmart/
 3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
+
+Please ensure your code follows our coding standards and includes appropriate tests.
+
+## Testing
+
+```bash
+# Run frontend tests
+cd SpendSmart-Frontend
+npm test
+
+# Run backend tests
+cd SpendSmart-Backend
+npm test
+```
 
 ## License
 
@@ -159,4 +277,11 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Contact
 
 Your Name - your.email@example.com
-Project Link: [https://github.com/yourusername/SpendSmart](https://github.com/yourusername/SpendSmart) 
+Project Link: [https://github.com/yourusername/SpendSmart](https://github.com/yourusername/SpendSmart)
+
+## Support
+
+For support, please:
+1. Check the [documentation](docs/)
+2. Open an issue in the repository
+3. Contact the maintainers 
