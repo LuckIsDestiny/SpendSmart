@@ -60,33 +60,48 @@ exports.updateGoal = async (req, res) => {
     try {
         const { id: authUser, email } = req.user;
         const { goalId } = req.params;
-        const { saved: newSavedValue } = req.body;
+        const { saved: newSavedValue, deadline } = req.body;
 
-        // Find and update the saved total
+        // Find and update the goal
         const goal = await SavingsGoal.findOne({ _id: goalId, authUser });
         if (!goal) return res.status(404).json({ message: 'Goal not found' });
 
-        const contributionAmount = newSavedValue - goal.saved;
-        if (contributionAmount > 0) {
-            // 1) update the total saved
-            goal.saved = newSavedValue;
-
-            // 2) record the contribution
-            goal.contributions.push({
-                amount: contributionAmount,
-                type: 'manual'
-            });  // subdocument push :contentReference[oaicite:2]{index=2}
-
-            await goal.save();
+        // Update deadline if provided
+        if (deadline) {
+            goal.deadline = new Date(deadline);
         }
 
-        // 3) send congrats if reached
-        if (goal.saved >= goal.target) {
+        // Update saved amount if provided
+        if (newSavedValue !== undefined) {
+            const contributionAmount = newSavedValue - goal.saved;
+            if (contributionAmount > 0) {
+                // 1) update the total saved
+                goal.saved = newSavedValue;
+
+                // 2) record the contribution
+                goal.contributions.push({
+                    amount: contributionAmount,
+                    type: 'manual'
+                });
+            }
+        }
+
+        await goal.save();
+
+        // 3) send congrats if reached and not already notified
+        if (goal.saved >= goal.target && !goal.goalReachedNotified) {
+            console.log('Goal reached!');
+            console.log('Sending email...');
             await sendMail({
                 to: email,
                 subject: `Goal Reached: ${goal.name}`,
-                text: `🎉 You’ve reached your savings goal "${goal.name}"!`
+                text: `🎉 You've reached your savings goal "${goal.name}"!`,
+                html: `<h1>🎉 You've reached your savings goal "${goal.name}"!</h1>`
             });
+            
+            // Mark as notified
+            goal.goalReachedNotified = true;
+            await goal.save();
         }
 
         res.json(goal);
