@@ -61,7 +61,7 @@ The application is containerized using Docker Compose. The frontend is configure
 The following environment variables are configured in docker-compose.yml:
 
 ### Frontend
-- `REACT_APP_API_URL`: API Gateway URL
+- `REACT_APP_API_BASE_URL`: API Gateway URL
 - `WDS_SOCKET_PORT`: WebSocket port for hot reloading
 
 ### Backend Services
