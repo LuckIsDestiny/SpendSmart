@@ -32,8 +32,8 @@ services:
   #     - MONGODB_URI=mongodb://mongo:27017/spendsmart_transactions
   #     - PORT=3002
   #     - JWT_SECRET=supersecretkey123456789
-  #     - PLAID_CLIENT_ID=6811b0c8ae79ac0022b608ea
-  #     - PLAID_SECRET=59f9af53807fde9ae4a08673035004
+  #     - PLAID_CLIENT_ID=
+  #     - PLAID_SECRET=
   #     - PLAID_ENV=sandbox
   #     - EXCHANGE_RATE_API_KEY=
   #   networks:
@@ -67,8 +67,8 @@ services:
       - JWT_SECRET=supersecretkey123456789
       - SMTP_HOST=smtp.gmail.com
       - SMTP_PORT=587
-      - SMTP_USER=naveenkumarskht77@gmail.com
-      - SMTP_PASS=uplmuqqhphhjdhsk
+      - SMTP_USER=your_email
+      - SMTP_PASS=email_password
       - AUTH_SERVICE_URL=http://auth-service:3001
       - MANUAL_TRANSACTIONS_SERVICE_URL=http://manual-transactions-service:3005
     networks:
