@@ -20,7 +20,7 @@ import {
   Cell,
   Legend
 } from 'recharts';
-import { fetchTransactions, fetchAccounts } from '../api';
+import { fetchTransactions, fetchAccounts } from '../api/api';
 import { motion } from 'framer-motion';
 import { exportReportsToPDF } from '../utils/pdfExport';
 import { useAuth } from '../contexts/AuthContext';

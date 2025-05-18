@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Box,
   Drawer,
@@ -12,12 +12,13 @@ import {
   ListItemIcon,
   ListItemText,
   Avatar,
-  Badge,
   useTheme,
   useMediaQuery,
   Menu,
   MenuItem,
   ListItemButton,
+  Tooltip,
+  Badge,
 } from '@mui/material';
 import {
   Menu as MenuIcon,
@@ -27,7 +28,6 @@ import {
   Savings as SavingsIcon,
   Assessment as ReportsIcon,
   SmartToy as AIAdvisorIcon,
-  Notifications as NotificationsIcon,
   Settings as SettingsIcon,
   ChevronLeft as ChevronLeftIcon,
   Person as PersonIcon,
@@ -36,6 +36,18 @@ import {
 } from '@mui/icons-material';
 import { useNavigate, useLocation, Outlet } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+
+// Predefined avatar colors (matching the Settings component)
+const AVATAR_COLORS = {
+  1: '#4a90e2', // Blue
+  2: '#50c878', // Emerald
+  3: '#f5a623', // Orange
+  4: '#d0021b', // Red
+  5: '#9013fe', // Purple
+  6: '#417505', // Green
+  7: '#f8e71c', // Yellow
+  8: '#7ed321', // Lime
+};
 
 const drawerWidth = 280;
 
@@ -188,21 +200,43 @@ const Layout = () => {
             <MenuIcon />
           </IconButton>
           <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-            <IconButton color="inherit">
-              <Badge badgeContent={4} color="error">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
-              onClick={handleProfileMenuOpen}
-              size="small"
-              sx={{ ml: 2 }}
+          <Box sx={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            gap: 2,
+            backgroundColor: 'rgba(0,0,0,0.03)',
+            borderRadius: 2,
+            px: 2,
+            py: 0.5,
+            transition: 'all 0.2s ease',
+            '&:hover': {
+              backgroundColor: 'rgba(0,0,0,0.05)',
+              cursor: 'pointer',
+            }
+          }} onClick={handleProfileMenuOpen}>
+            <Typography 
+              variant="body1" 
+              sx={{ 
+                color: 'text.primary',
+                fontWeight: 500,
+                display: { xs: 'none', sm: 'block' }
+              }}
             >
-              <Avatar sx={{ width: 32, height: 32, bgcolor: 'primary.main' }}>
-                {user?.name?.charAt(0) || 'U'}
-              </Avatar>
-            </IconButton>
+              {user?.name || 'User'}
+            </Typography>
+            <Avatar 
+              sx={{ 
+                width: 32, 
+                height: 32, 
+                bgcolor: AVATAR_COLORS[user?.avatarId || 1],
+                transition: 'all 0.2s ease',
+                '&:hover': {
+                  transform: 'scale(1.05)',
+                }
+              }}
+            >
+              {user?.name?.charAt(0)?.toUpperCase() || 'U'}
+            </Avatar>
           </Box>
           <Menu
             anchorEl={anchorEl}

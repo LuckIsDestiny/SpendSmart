@@ -25,7 +25,8 @@ exports.register = async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
-      role: user.role, // Include role in response
+      role: user.role,
+      avatarId: user.avatarId,
       token
     });
   } catch (err) {
@@ -49,7 +50,8 @@ exports.login = async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
-      role: user.role, // Include role in response
+      role: user.role,
+      avatarId: user.avatarId,
       token
     });
   } catch (err) {

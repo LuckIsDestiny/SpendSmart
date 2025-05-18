@@ -22,6 +22,12 @@ const userSchema = new mongoose.Schema(
       enum: ['User', 'Admin'],
       default: 'User',
     },
+    avatarId: {
+      type: Number,
+      default: 1,
+      min: 1,
+      max: 8,
+    },
   },
   { timestamps: true }
 );

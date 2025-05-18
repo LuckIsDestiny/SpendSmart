@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Typography, Box, TextField, Button, Alert, Link } from '@mui/material';
-import { login } from '../api';
+import { login } from '../api/api';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import SectionCard from '../components/SectionCard';
@@ -24,12 +24,16 @@ function Login() {
     try {
       const response = await login(email, password);
       // Backend returns user data and token directly
-      const { _id, name, email: userEmail, role, token } = response.data;
+      const { _id, name, email: userEmail, role, avatarId, token } = response.data;
       
       // Store user data and token in AuthContext
-      authLogin({ _id, name, email: userEmail, role }, token);
-      
-      // Login successful
+      authLogin({ 
+        _id, 
+        name, 
+        email: userEmail, 
+        role,
+        avatarId: avatarId || 1 // Ensure avatarId is set
+      }, token);
       
       // Navigate to the page they were trying to access, or dashboard
       navigate(from, { replace: true });

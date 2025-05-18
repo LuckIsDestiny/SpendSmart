@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { Typography, Box, Button, TextField, CircularProgress, MenuItem, Alert, LinearProgress, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, IconButton, Tooltip, Card, CardContent, Grid, InputAdornment, FormControl, InputLabel, Select } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import { fetchBudgets, createBudget, updateBudget, deleteBudget, fetchBudgetSummary } from '../api';
+import { fetchBudgets, createBudget, updateBudget, deleteBudget, fetchBudgetSummary } from '../api/api';
 import SectionCard from '../components/SectionCard';
 import { CheckCircle as CheckCircleIcon, Warning as WarningIcon, Edit as EditIcon, Delete as DeleteIcon, Add as AddIcon, Search as SearchIcon } from '@mui/icons-material';
 

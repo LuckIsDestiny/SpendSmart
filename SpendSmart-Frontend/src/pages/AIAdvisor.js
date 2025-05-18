@@ -15,7 +15,7 @@ import {
   SmartToy as AIIcon,
   Person as PersonIcon
 } from '@mui/icons-material';
-import { chatWithAI } from '../api';
+import { chatWithAI } from '../api/api';
 
 const AIAdvisor = () => {
   const [question, setQuestion] = useState('');

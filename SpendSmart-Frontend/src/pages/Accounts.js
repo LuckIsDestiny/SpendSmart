@@ -57,7 +57,7 @@ import {
   createTransaction,
   updateTransaction,
   deleteTransaction,
-} from '../api';
+} from '../api/api';
 
 function AccountsContent() {
   const theme = useTheme();

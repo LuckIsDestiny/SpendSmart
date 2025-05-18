@@ -11,16 +11,32 @@ export function AuthProvider({ children }) {
     const token = localStorage.getItem('token');
     const userData = localStorage.getItem('user');
     if (token && userData) {
-      setIsAuthenticated(true);
-      setUser(JSON.parse(userData));
+      try {
+        const parsedUser = JSON.parse(userData);
+        // Ensure avatarId is set
+        if (!parsedUser.avatarId) {
+          parsedUser.avatarId = 1;
+        }
+        setIsAuthenticated(true);
+        setUser(parsedUser);
+      } catch (error) {
+        console.error('Error parsing user data:', error);
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+      }
     }
   }, []);
 
   const login = (userData, token) => {
+    // Ensure avatarId is set
+    const userWithAvatar = {
+      ...userData,
+      avatarId: userData.avatarId || 1
+    };
     localStorage.setItem('token', token);
-    localStorage.setItem('user', JSON.stringify(userData));
+    localStorage.setItem('user', JSON.stringify(userWithAvatar));
     setIsAuthenticated(true);
-    setUser(userData);
+    setUser(userWithAvatar);
   };
 
   const logout = () => {
@@ -30,8 +46,14 @@ export function AuthProvider({ children }) {
     setUser(null);
   };
 
+  const updateUser = (updatedUserData) => {
+    const currentUser = { ...user, ...updatedUserData };
+    localStorage.setItem('user', JSON.stringify(currentUser));
+    setUser(currentUser);
+  };
+
   return (
-    <AuthContext.Provider value={{ isAuthenticated, user, login, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, user, login, logout, updateUser }}>
       {children}
     </AuthContext.Provider>
   );
