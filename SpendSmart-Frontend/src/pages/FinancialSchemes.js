@@ -17,7 +17,9 @@ import {
   IconButton,
   Tooltip,
   useTheme,
-  alpha
+  alpha,
+  Pagination,
+  Stack
 } from '@mui/material';
 import {
   Search as SearchIcon,
@@ -75,6 +77,231 @@ const mockSchemes = [
     eligibility: "Economically weaker sections and low-income groups",
     url: "https://pmaymis.gov.in",
     category: "housing"
+  },
+  {
+    id: 6,
+    name: "Atal Pension Yojana",
+    type: "Government",
+    description: "A pension scheme focused on the unorganized sector workers.",
+    eligibility: "Indian citizens between 18-40 years",
+    url: "https://www.jansuraksha.gov.in",
+    category: "savings"
+  },
+  {
+    id: 7,
+    name: "PM Kisan Samman Nidhi",
+    type: "Government",
+    description: "Income support scheme for farmers with direct benefit transfer.",
+    eligibility: "Small and marginal farmer families",
+    url: "https://pmkisan.gov.in",
+    category: "savings"
+  },
+  {
+    id: 8,
+    name: "SBI Education Loan",
+    type: "Private",
+    description: "Comprehensive education loan for higher studies in India and abroad.",
+    eligibility: "Students with admission to recognized institutions",
+    url: "https://www.sbi.co.in",
+    category: "education"
+  },
+  {
+    id: 9,
+    name: "PM Mudra Yojana",
+    type: "Government",
+    description: "Micro Units Development and Refinance Agency for small businesses.",
+    eligibility: "Non-corporate, non-farm small/micro enterprises",
+    url: "https://www.mudra.org.in",
+    category: "savings"
+  },
+  {
+    id: 10,
+    name: "ICICI Pru Life Insurance",
+    type: "Private",
+    description: "Comprehensive life insurance plans with investment options.",
+    eligibility: "Individuals between 18-65 years",
+    url: "https://www.iciciprulife.com",
+    category: "insurance"
+  },
+  {
+    id: 11,
+    name: "PM Kisan Maan Dhan Yojana",
+    type: "Government",
+    description: "Pension scheme for small and marginal farmers.",
+    eligibility: "Small and marginal farmers between 18-40 years",
+    url: "https://pmkmy.gov.in",
+    category: "savings"
+  },
+  {
+    id: 12,
+    name: "Axis Bank Home Loan",
+    type: "Private",
+    description: "Competitive home loans with flexible repayment options.",
+    eligibility: "Salaried/self-employed individuals with stable income",
+    url: "https://www.axisbank.com",
+    category: "housing"
+  },
+  {
+    id: 13,
+    name: "PM SVANidhi",
+    type: "Government",
+    description: "Micro credit facility for street vendors to resume their livelihoods.",
+    eligibility: "Street vendors in urban areas",
+    url: "https://pmsvanidhi.mohua.gov.in",
+    category: "business"
+  },
+  {
+    id: 14,
+    name: "Kotak Mahindra Bank Business Loan",
+    type: "Private",
+    description: "Quick business loans for MSMEs with minimal documentation.",
+    eligibility: "Business owners with 3+ years of experience",
+    url: "https://www.kotak.com",
+    category: "business"
+  },
+  {
+    id: 15,
+    name: "PM Ujjwala Yojana",
+    type: "Government",
+    description: "Free LPG connections to women from below poverty line families.",
+    eligibility: "Women from BPL families",
+    url: "https://www.pmujjwalayojana.com",
+    category: "welfare"
+  },
+  {
+    id: 16,
+    name: "HDFC Bank Personal Loan",
+    type: "Private",
+    description: "Quick personal loans with competitive interest rates.",
+    eligibility: "Salaried individuals with stable income",
+    url: "https://www.hdfcbank.com",
+    category: "personal"
+  },
+  {
+    id: 17,
+    name: "PM Garib Kalyan Yojana",
+    type: "Government",
+    description: "Financial assistance and food security for poor and vulnerable sections.",
+    eligibility: "Below poverty line families",
+    url: "https://www.nic.in",
+    category: "welfare"
+  },
+  {
+    id: 18,
+    name: "ICICI Bank Car Loan",
+    type: "Private",
+    description: "Attractive car loans with flexible repayment options.",
+    eligibility: "Salaried/self-employed individuals",
+    url: "https://www.icicibank.com",
+    category: "personal"
+  },
+  {
+    id: 19,
+    name: "PM Kisan Credit Card",
+    type: "Government",
+    description: "Credit card for farmers to meet their cultivation needs.",
+    eligibility: "Farmers with land ownership",
+    url: "https://www.pmkisan.gov.in",
+    category: "agriculture"
+  },
+  {
+    id: 20,
+    name: "SBI Gold Loan",
+    type: "Private",
+    description: "Quick loans against gold with minimal documentation.",
+    eligibility: "Individuals with gold ornaments",
+    url: "https://www.sbi.co.in",
+    category: "personal"
+  },
+  {
+    id: 21,
+    name: "PM Kisan Sampada Yojana",
+    type: "Government",
+    description: "Scheme for Agro-Marine Processing and Development of Agro-Processing Clusters.",
+    eligibility: "Food processing entrepreneurs and organizations",
+    url: "https://mofpi.nic.in",
+    category: "agriculture"
+  },
+  {
+    id: 22,
+    name: "HDFC Mutual Fund",
+    type: "Private",
+    description: "Diverse range of mutual fund schemes for different investment goals.",
+    eligibility: "All Indian residents",
+    url: "https://www.hdfcfund.com",
+    category: "investment"
+  },
+  {
+    id: 23,
+    name: "PM Matsya Sampada Yojana",
+    type: "Government",
+    description: "Scheme for development of fisheries sector and welfare of fishermen.",
+    eligibility: "Fishermen and fish farmers",
+    url: "https://dof.gov.in",
+    category: "agriculture"
+  },
+  {
+    id: 24,
+    name: "ICICI Prudential Mutual Fund",
+    type: "Private",
+    description: "Comprehensive mutual fund solutions for long-term wealth creation.",
+    eligibility: "All Indian residents",
+    url: "https://www.icicipruamc.com",
+    category: "investment"
+  },
+  {
+    id: 25,
+    name: "PM FME Scheme",
+    type: "Government",
+    description: "Formalization of Micro Food Processing Enterprises scheme.",
+    eligibility: "Micro food processing enterprises",
+    url: "https://mofpi.nic.in",
+    category: "business"
+  },
+  {
+    id: 26,
+    name: "SBI Mutual Fund",
+    type: "Private",
+    description: "Wide range of mutual fund schemes for various investment objectives.",
+    eligibility: "All Indian residents",
+    url: "https://www.sbimf.com",
+    category: "investment"
+  },
+  {
+    id: 27,
+    name: "PM Kisan Urja Suraksha",
+    type: "Government",
+    description: "Scheme for solar power generation and irrigation pumps.",
+    eligibility: "Farmers with grid-connected agriculture pumps",
+    url: "https://mnre.gov.in",
+    category: "agriculture"
+  },
+  {
+    id: 28,
+    name: "Axis Mutual Fund",
+    type: "Private",
+    description: "Diverse investment options through various mutual fund schemes.",
+    eligibility: "All Indian residents",
+    url: "https://www.axismf.com",
+    category: "investment"
+  },
+  {
+    id: 29,
+    name: "PM Kisan Samruddhi Kendras",
+    type: "Government",
+    description: "One-stop solution centers for farmers' needs and services.",
+    eligibility: "All farmers",
+    url: "https://www.pmkisan.gov.in",
+    category: "agriculture"
+  },
+  {
+    id: 30,
+    name: "Kotak Mutual Fund",
+    type: "Private",
+    description: "Comprehensive mutual fund solutions for wealth creation.",
+    eligibility: "All Indian residents",
+    url: "https://www.kotakmutual.com",
+    category: "investment"
   }
 ];
 
@@ -83,7 +310,12 @@ const categories = [
   { value: 'savings', label: 'Savings', icon: <SavingsIcon /> },
   { value: 'education', label: 'Education', icon: <SchoolIcon /> },
   { value: 'housing', label: 'Housing', icon: <HomeIcon /> },
-  { value: 'insurance', label: 'Insurance', icon: <BusinessIcon /> }
+  { value: 'insurance', label: 'Insurance', icon: <BusinessIcon /> },
+  { value: 'business', label: 'Business', icon: <BusinessIcon /> },
+  { value: 'welfare', label: 'Welfare', icon: <BusinessIcon /> },
+  { value: 'personal', label: 'Personal', icon: <BusinessIcon /> },
+  { value: 'agriculture', label: 'Agriculture', icon: <BusinessIcon /> },
+  { value: 'investment', label: 'Investment', icon: <BusinessIcon /> }
 ];
 
 function FinancialSchemes() {
@@ -91,6 +323,8 @@ function FinancialSchemes() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [schemes, setSchemes] = useState(mockSchemes);
+  const [page, setPage] = useState(1);
+  const schemesPerPage = 9; // Show 9 schemes per page (3x3 grid)
 
   // Filter schemes based on search term and category
   const filteredSchemes = useMemo(() => {
@@ -102,12 +336,25 @@ function FinancialSchemes() {
     });
   }, [schemes, searchTerm, selectedCategory]);
 
+  // Calculate pagination
+  const totalPages = Math.ceil(filteredSchemes.length / schemesPerPage);
+  const startIndex = (page - 1) * schemesPerPage;
+  const paginatedSchemes = filteredSchemes.slice(startIndex, startIndex + schemesPerPage);
+
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
+    setPage(1); // Reset to first page on new search
   };
 
   const handleCategoryChange = (event) => {
     setSelectedCategory(event.target.value);
+    setPage(1); // Reset to first page on category change
+  };
+
+  const handlePageChange = (event, value) => {
+    setPage(value);
+    // Scroll to top of the page when changing pages
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const getCategoryIcon = (category) => {
@@ -180,9 +427,14 @@ function FinancialSchemes() {
         </Grid>
       </Card>
 
+      {/* Results Count */}
+      <Typography variant="subtitle1" sx={{ mb: 2, color: 'text.secondary' }}>
+        Showing {filteredSchemes.length} schemes
+      </Typography>
+
       {/* Schemes Grid */}
       <Grid container spacing={3}>
-        {filteredSchemes.map((scheme) => (
+        {paginatedSchemes.map((scheme) => (
           <Grid item xs={12} sm={6} md={4} key={scheme.id}>
             <Card
               sx={{
@@ -239,6 +491,26 @@ function FinancialSchemes() {
           </Grid>
         ))}
       </Grid>
+
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <Stack spacing={2} alignItems="center" sx={{ mt: 4 }}>
+          <Pagination
+            count={totalPages}
+            page={page}
+            onChange={handlePageChange}
+            color="primary"
+            size="large"
+            showFirstButton
+            showLastButton
+            sx={{
+              '& .MuiPaginationItem-root': {
+                borderRadius: 2,
+              },
+            }}
+          />
+        </Stack>
+      )}
     </Box>
   );
 }
